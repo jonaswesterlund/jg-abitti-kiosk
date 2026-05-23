@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=kiosk
 Comment=Kiosk session with cage and Chromium
-Exec=/usr/local/bin/kiosk-session
+Exec=/usr/bin/kiosk-session
 Type=Application
 DesktopNames=kiosk
