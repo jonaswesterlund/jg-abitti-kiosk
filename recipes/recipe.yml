@@ -3,7 +3,7 @@
 # image will be published to ghcr.io/<user>/<name>
 name: jg-abitti-kiosk
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: Kiosk image for exam supervision — cage compositor + Chromium, tmpfs home, auto-login
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
@@ -12,34 +12,71 @@ image-version: 42 # latest is also supported if you want new updates ASAP
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  - type: dnf
+    install:
+      packages:
+        - chromium
+        - cage
+        - udiskie
+        - swayidle
+    remove:
+      packages:
+        - firefox
+        - firefox-langpacks
+        - gnome-initial-setup
+        - gnome-tour
+        - gnome-software
+        - nautilus
+        - gnome-console
+        - gnome-text-editor
+        - evince
+        - gnome-calculator
+        - micro
+        - starship
+
   - type: files
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  - type: dnf
-    repos:
-      copr:
-        - atim/starship
-    install:
-      packages:
-        - micro
-        - starship
-    remove:
-      packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
-        - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+  - type: script
+    scripts:
+      - setup-kiosk.sh
+
+  - type: systemd
+    system:
+      enabled:
+        - home-kiosk.mount
+      masked:
+        - flatpak-system-update.timer
+    user:
+      disabled:
+        - flatpak-user-update.timer
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false
         scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
+        remove:
           - org.mozilla.firefox
           - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+          - org.gnome.Calculator
+          - org.gnome.Calendar
+          - org.gnome.Characters
+          - org.gnome.Clocks
+          - org.gnome.Connections
+          - org.gnome.Contacts
+          - org.gnome.Evince
+          - org.gnome.Fonts
+          - org.gnome.Logs
+          - org.gnome.Maps
+          - org.gnome.Music
+          - org.gnome.Photos
+          - org.gnome.Snapshot
+          - org.gnome.TextEditor
+          - org.gnome.Totem
+          - org.gnome.Weather
+          - org.gnome.baobab
+      - scope: user
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

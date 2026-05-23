@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p "$HOME"/Downloads
+
+udiskie &
+
+swayidle -w timeout 86400 'true' &
+
+while true; do
+    cage -- chromium \
+        --ozone-platform=wayland \
+        --kiosk \
+        --noerrdialogs \
+        --disable-infobars \
+        --no-first-run \
+        --disable-session-crashed-bubble \
+        --disable-features=TranslateUI \
+        --overscroll-history-navigation=0
+    sleep 1
+done

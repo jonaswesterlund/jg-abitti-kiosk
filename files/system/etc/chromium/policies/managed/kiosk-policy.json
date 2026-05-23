@@ -1,0 +1,10 @@
+{
+  "DeveloperToolsAvailability": 2,
+  "IncognitoModeAvailability": 1,
+  "PasswordManagerEnabled": false,
+  "BrowserSignin": 0,
+  "DefaultBrowserSettingEnabled": false,
+  "MetricsReportingEnabled": false,
+  "BookmarkBarEnabled": false,
+  "FullscreenAllowed": true
+}
