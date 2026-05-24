@@ -47,6 +47,7 @@ modules:
     system:
       enabled:
         - home-kiosk.mount
+        - kiosk-accounts.service
       masked:
         - flatpak-system-update.timer
     user:

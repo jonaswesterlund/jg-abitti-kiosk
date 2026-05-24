@@ -6,7 +6,7 @@ Before=display-manager.service
 What=tmpfs
 Where=/home/kiosk
 Type=tmpfs
-Options=size=512M,mode=0700,uid=1000,gid=1000
+Options=size=512M,mode=0700,uid=9999,gid=9999
 
 [Install]
 WantedBy=local-fs.target
