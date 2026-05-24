@@ -53,6 +53,8 @@ modules:
     user:
       disabled:
         - flatpak-user-update.timer
+      masked:
+        - gnome-keyring-daemon.service
 
   - type: default-flatpaks
     configurations:

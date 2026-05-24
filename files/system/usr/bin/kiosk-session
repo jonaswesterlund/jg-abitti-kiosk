@@ -1,6 +1,8 @@
 #!/bin/bash
 
 mkdir -p "$HOME"/Downloads
+mkdir -p "$HOME/.local/share/keyrings"
+echo "" > "$HOME/.local/share/keyrings/Default_keyring"
 
 udiskie &
 
