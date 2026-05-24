@@ -39,15 +39,12 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  - type: script
-    scripts:
-      - setup-kiosk.sh
-
   - type: systemd
     system:
       enabled:
         - home-kiosk.mount
         - kiosk-accounts.service
+        - kiosk-setup.service
       masked:
         - flatpak-system-update.timer
     user:

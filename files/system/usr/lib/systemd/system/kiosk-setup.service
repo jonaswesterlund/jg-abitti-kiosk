@@ -1,0 +1,12 @@
+[Unit]
+Description=First-boot setup for kiosk user
+ConditionPathExists=!/etc/kiosk-setup-done
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/kiosk-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
