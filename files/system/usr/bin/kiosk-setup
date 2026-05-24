@@ -1,11 +1,11 @@
 #!/bin/bash
-set -euo pipefail
+set -uo pipefail
 
 if ! id kiosk &>/dev/null; then
-    useradd -u 9999 -m -s /bin/bash kiosk
+    useradd -u 9999 -M -s /bin/bash kiosk
 fi
 
-usermod -aG wheel,audio,video kiosk
+usermod -aG wheel,audio,video,render kiosk
 passwd -d kiosk
 
 cat > /etc/sudoers.d/kiosk <<'EOF'

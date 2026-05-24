@@ -1,0 +1,13 @@
+#!/bin/bash
+set -uo pipefail
+
+for userdir in /var/lib/AccountsService/users/*; do
+    username=$(basename "$userdir")
+    if [ "$username" != "kiosk" ] && [ "$username" != "gdm" ]; then
+        if ! grep -q '^SystemAccount=' "$userdir" 2>/dev/null; then
+            printf '\nSystemAccount=true\n' >> "$userdir"
+        elif ! grep -q '^SystemAccount=true' "$userdir" 2>/dev/null; then
+            sed -i 's/^SystemAccount=.*/SystemAccount=true/' "$userdir"
+        fi
+    fi
+done

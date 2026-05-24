@@ -1,7 +1,7 @@
 [Unit]
 Description=Create kiosk AccountsService entry for auto-login
 Before=display-manager.service
-After=kiosk-setup.service
+After=kiosk-setup.service home-kiosk.mount
 
 [Service]
 Type=oneshot

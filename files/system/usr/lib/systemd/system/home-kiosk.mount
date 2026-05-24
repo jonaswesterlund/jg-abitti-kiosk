@@ -1,5 +1,6 @@
 [Unit]
 Description=Tmpfs for kiosk user home directory
+After=kiosk-setup.service
 Before=display-manager.service
 
 [Mount]
@@ -9,4 +10,4 @@ Type=tmpfs
 Options=size=512M,mode=0700,uid=9999,gid=9999
 
 [Install]
-WantedBy=local-fs.target
+WantedBy=multi-user.target
