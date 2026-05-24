@@ -7,7 +7,7 @@ udiskie &
 swayidle -w timeout 86400 'true' &
 
 while true; do
-    cage -- chromium \
+    cage -- chromium-browser \
         --ozone-platform=wayland \
         --kiosk \
         --noerrdialogs \
