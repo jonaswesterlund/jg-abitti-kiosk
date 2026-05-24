@@ -15,6 +15,7 @@ while true; do
         --no-first-run \
         --disable-session-crashed-bubble \
         --disable-features=TranslateUI \
-        --overscroll-history-navigation=0
+        --overscroll-history-navigation=0 \
+        --password-store=basic
     sleep 1
 done
