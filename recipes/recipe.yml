@@ -31,8 +31,6 @@ modules:
         - gnome-text-editor
         - evince
         - gnome-calculator
-        - gnome-keyring
-        - gnome-keyring-pam
         - micro
         - starship
 
