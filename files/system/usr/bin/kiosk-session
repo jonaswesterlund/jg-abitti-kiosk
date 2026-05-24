@@ -11,7 +11,7 @@ swayidle -w timeout 86400 'true' &
 while true; do
     cage -- chromium-browser \
         --ozone-platform=wayland \
-        --kiosk \
+        --start-fullscreen \
         --noerrdialogs \
         --disable-infobars \
         --no-first-run \
