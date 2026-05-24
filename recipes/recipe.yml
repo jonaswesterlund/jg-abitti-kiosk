@@ -42,10 +42,11 @@ modules:
   - type: systemd
     system:
       enabled:
-        - home-kiosk.mount
+        - var-home-kiosk.mount
         - kiosk-accounts.service
         - kiosk-setup.service
       masked:
+        - home-kiosk.mount
         - flatpak-system-update.timer
     user:
       disabled:

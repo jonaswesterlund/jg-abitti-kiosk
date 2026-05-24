@@ -1,11 +1,10 @@
 [Unit]
 Description=First-boot setup for kiosk user
-ConditionPathExists=!/etc/kiosk-setup-done
-Before=display-manager.service home-kiosk.mount kiosk-accounts.service
+Before=display-manager.service var-home-kiosk.mount kiosk-accounts.service
 
 [Service]
 Type=oneshot
-ExecStartPre=/usr/bin/mkdir -p /home/kiosk
+ExecStartPre=/usr/bin/mkdir -p /var/home/kiosk
 ExecStart=/usr/bin/kiosk-setup
 ExecStart=/usr/bin/kiosk-hide-users
 RemainAfterExit=yes

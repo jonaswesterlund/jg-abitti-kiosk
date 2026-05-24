@@ -5,7 +5,7 @@ Before=display-manager.service
 
 [Mount]
 What=tmpfs
-Where=/home/kiosk
+Where=/var/home/kiosk
 Type=tmpfs
 Options=size=512M,mode=0700,uid=9999,gid=9999
 
