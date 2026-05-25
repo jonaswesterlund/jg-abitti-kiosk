@@ -1,0 +1,11 @@
+[Unit]
+Description=Configure WiFi from USB provisioning file
+After=network.target NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/kiosk-wifi-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

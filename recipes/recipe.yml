@@ -45,6 +45,7 @@ modules:
         - var-home-kiosk.mount
         - kiosk-accounts.service
         - kiosk-setup.service
+        - kiosk-wifi-setup.service
       masked:
         - home-kiosk.mount
         - flatpak-system-update.timer

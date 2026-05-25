@@ -1,0 +1,36 @@
+#!/bin/bash
+
+USB_BASE="/run/media/kiosk"
+MAX_WAIT=15
+POLL_INTERVAL=1
+
+for i in $(seq 1 "$MAX_WAIT"); do
+    for dir in "$USB_BASE"/*; do
+        [ -d "$dir" ] || continue
+        [ -f "$dir/wifi.conf" ] || continue
+
+        # Validate minimal content
+        ssid=$(grep -Po '(?<=^ssid=).*' "$dir/wifi.conf" | head -1)
+        psk=$(grep -Po '(?<=^psk=).*' "$dir/wifi.conf" | head -1)
+
+        if [ -z "$ssid" ]; then
+            continue
+        fi
+
+        # Check if connection already exists
+        if nmcli connection show "$ssid" &>/dev/null; then
+            exit 0
+        fi
+
+        if [ -n "$psk" ]; then
+            nmcli device wifi connect "$ssid" password "$psk" ifname wlan0 2>/dev/null && exit 0
+            # Fallback: add connection profile without connecting
+            nmcli connection add type wifi con-name "$ssid" ssid "$ssid" wifi-sec.key-mgmt wpa-psk wifi-sec.psk "$psk" connection.autoconnect yes 2>/dev/null && exit 0
+        else
+            # Open network
+            nmcli device wifi connect "$ssid" ifname wlan0 2>/dev/null && exit 0
+            nmcli connection add type wifi con-name "$ssid" ssid "$ssid" connection.autoconnect yes 2>/dev/null && exit 0
+        fi
+    done
+    sleep "$POLL_INTERVAL"
+done
